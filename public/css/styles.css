@@ -1,0 +1,11 @@
+.die {
+    display: inline-block;
+    margin: 5px;
+    padding: 10px 10px;
+    border: 1px solid #000;
+    cursor: pointer;
+    font-size: 2.5rem;
+}
+.selected {
+    background-color: lightcoral;
+}
