@@ -88,12 +88,24 @@ function getTwoPairsScore(dice) {
 function getFullHouseScore(dice) {
     const counts = Array(7).fill(0);
     dice.forEach(die => counts[die]++);
-    let threeOfAKind = false, twoOfAKind = false;
-    counts.forEach(count => {
-        if (count >= 3) threeOfAKind = true;
-        if (count >= 2) twoOfAKind = true;
+    
+    let tripleValue = 0;
+    let tripleFound = false;
+    let doubleValue = 0;
+    let doubleFound = false;
+    
+    counts.forEach((count, index) => {
+        if (count >= 3) {
+            tripleValue = index;
+            tripleFound = true;
+        }
+        if (count >= 2 && index !== tripleValue) {
+            doubleValue = index;
+            doubleFound = true;
+        }
     });
-    return threeOfAKind && twoOfAKind ? dice.reduce((sum, die) => sum + die, 0) : 0;
+    
+    return tripleFound && doubleFound ? (tripleValue * 3) + (doubleValue * 2) : 0;
 }
 
 function getSmallStraightScore(dice) {
