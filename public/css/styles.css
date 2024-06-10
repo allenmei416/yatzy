@@ -4,14 +4,25 @@ body {
 }
 
 #yatzy-title {
-    font-size: 36px;
-    margin-top: 20px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 90px;
+}
+
+#score {
+   font-family: 'Bebas Neue', sans-serif;
+   font-size: 50px;
+   margin-top: 15px;
 }
 
 #roll-result {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 10px;
+}
+
+#turn-info {
+    margin-top: 10px;
+    font-size: 20px;
 }
 
 .die {
@@ -26,6 +37,10 @@ body {
     cursor: pointer;
 }
 
+.die:hover {
+    background-color: darkgray;
+}
+
 .die.selected {
     background-color: rgb(18, 171, 102);
     color: white;
@@ -34,12 +49,16 @@ body {
 #roll-dice {
     margin-top: 20px;
     padding: 10px 20px;
-    font-size: 18px;
+    font-size: 25px;
     background-color: #007bff;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+}
+
+#roll-dice:hover {
+    background-color: #0358b2;
 }
 
 #roll-dice.disabled {
@@ -88,7 +107,7 @@ body {
     cursor: default;
     pointer-events: none; 
     opacity: 0.5; 
-    background-color: #007bff;
+    background-color: rgb(18, 171, 102);
 }
 
 .bottom-row-container {
@@ -103,14 +122,17 @@ body {
     margin-right: 20px;
 }
 
-
-.button-reset {
+#button-reset {
     margin-top: 20px;
     padding: 10px 20px;
     font-size: 18px;
-    background-color: #fd5d5d;
+    background-color: #f33232;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+}
+
+#button-reset:hover {
+    background-color: #d11e1e;
 }
