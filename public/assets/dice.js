@@ -1,14 +1,15 @@
-function attemptRollDice(){
-    if (game.previousTurnBoxSelected){
+// Attempts to re-roll the dice
+function attemptRollDice() {
+    if (game.previousTurnBoxSelected) {
         game.resetTurn()
         roll()
         game.previousTurnBoxSelected = false;
-    } else{
+    } else {
         roll()
     }
 }
 
-
+// Rolls the dice if they are not selected to be kept, updates the scoreboard
 function roll() {
     game.boxSelected = false;
     if (game.getState().turn < 3) {
@@ -28,12 +29,12 @@ function roll() {
     }
 }
 
-
+// Displays the dice results on the screen
 function displayDiceResults() {
     const state = game.getState();
     for (let i = 0; i < 5; i++) {
         const dieDiv = document.getElementById(`die-${i}`);
-        dieDiv.className = 'die'; 
+        dieDiv.className = 'die';
         if (state.diceSelected[i]) {
             dieDiv.classList.add('selected');
         }
@@ -46,9 +47,6 @@ function displayDiceResults() {
         } else {
             dieDiv.onclick = null;
         }
-        // if (game.turn === 3) {
-        //     dieDiv.classList.remove('selected');
-        // }
     }
     document.getElementById('turn-info').innerText = `Turn: ${state.turn}`;
 }

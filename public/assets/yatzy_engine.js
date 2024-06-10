@@ -1,3 +1,4 @@
+// Calculates the score for each scorebox (combination) and returns the value
 function calculateScore(game, scoreBox) {
     const selectedScore = game.selectedScores.find(score => score.scoreBox === scoreBox);
     if (selectedScore) {
@@ -61,6 +62,7 @@ function calculateScore(game, scoreBox) {
     return score;
 }
 
+// Any number of a kind scoring
 function getNOfAKindScore(dice, n) {
     const counts = Array(7).fill(0);
     dice.forEach(die => counts[die]++);
@@ -73,6 +75,7 @@ function getNOfAKindScore(dice, n) {
     return maxPairValue * n; 
 }
 
+// Two pairs scoring
 function getTwoPairsScore(dice) {
     const counts = Array(7).fill(0);
     dice.forEach(die => counts[die]++);
@@ -85,6 +88,7 @@ function getTwoPairsScore(dice) {
     return pairs.length >= 2 ? pairs[0] + pairs[1] : 0;
 }
 
+// Full house scoring
 function getFullHouseScore(dice) {
     const counts = Array(7).fill(0);
     dice.forEach(die => counts[die]++);
@@ -108,16 +112,19 @@ function getFullHouseScore(dice) {
     return tripleFound && doubleFound ? (tripleValue * 3) + (doubleValue * 2) : 0;
 }
 
+// Small straight scoring
 function getSmallStraightScore(dice) {
     const smallStraight = [1, 2, 3, 4, 5];
     return smallStraight.every(num => dice.includes(num)) ? 15 : 0;
 }
 
+// Large straight scoring
 function getLargeStraightScore(dice) {
     const largeStraight = [2, 3, 4, 5, 6];
     return largeStraight.every(num => dice.includes(num)) ? 20 : 0;
 }
 
+// In charge of the selection (keep) of a combination
 function selectScore(scoreBox) {
     if (game.turn > 0){
         if (!game.boxSelected){
@@ -149,6 +156,7 @@ function selectScore(scoreBox) {
     
 }
 
+// Updates the scoreboard after every dice roll for every combination
 function updateScoreboard(game) {
     const scoreBoxes = ['ones', 'twos', 'threes', 'fours', 'fives', 'sixes', 'onePair', 'twoPairs', 'threeOfAKind', 'fourOfAKind', 'fullHouse', 'smallStraight', 'largeStraight', 'chance', 'yahtzee'];
     scoreBoxes.forEach(box => {
@@ -172,6 +180,7 @@ function updateScoreboard(game) {
     document.querySelector('.yahtzee').textContent = game.scores.yahtzee;
 }
 
+// Updates the final, bonus, and upper scores on the scoreboard
 function updateOverallScore(game) {
     const upperSectionKeys = ["ones", "twos", "threes", "fours", "fives", "sixes"];
     const lowerSectionKeys = ['onePair', 'twoPairs', 'threeOfAKind', 'fourOfAKind', 'fullHouse', 'smallStraight', 'largeStraight', 'chance', 'yahtzee'];
@@ -199,6 +208,7 @@ function updateOverallScore(game) {
     document.querySelector('.bonus').textContent = game.bonus;
 }
 
+// Checker to see if the game has been won/finished
 function checkGameWin(game) {
     let gameWin = false;
     const upperSectionKeys = ["ones", "twos", "threes", "fours", "fives", "sixes"];
