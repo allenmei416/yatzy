@@ -43,6 +43,7 @@ class YatzyGame {
         this.bonus = 0;
         this.finalScore = 0;
         this.boxSelected = false;
+        this.previousTurnBoxSelected = false;
     }
 
     nextTurn() {
@@ -55,6 +56,10 @@ class YatzyGame {
         this.turn = 0;
         this.diceValues = [0, 0, 0, 0, 0];
         this.diceSelected = [false, false, false, false, false];
+    }
+
+    resetDiceValue(){
+        
     }
 
     toggleDieSelection(index) {

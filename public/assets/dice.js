@@ -1,4 +1,15 @@
-function rollDice() {
+function attemptRollDice(){
+    if (game.previousTurnBoxSelected){
+        game.resetTurn()
+        roll()
+        game.previousTurnBoxSelected = false;
+    } else{
+        roll()
+    }
+}
+
+
+function roll() {
     game.boxSelected = false;
     if (game.getState().turn < 3) {
         if (game.getState().turn === 2) {
