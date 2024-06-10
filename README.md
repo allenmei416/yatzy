@@ -16,3 +16,23 @@ As described in the assignment document, Yatzy is a dice game that requires the 
 This repository documents the design system for our Yatzy project.
 
 [Design System](/docs/design_system.md)
+
+## User Interface States
+
+### Start
+
+![Start Game](/docs/ui_states/start_game.png)
+
+This is the start of the game.
+
+### During
+
+![During Game](/docs/ui_states/during_game.png)
+
+This is during the game.
+
+### End
+
+![End Game](/docs/ui_states/end_game.png)
+
+This is at the end of the game.
