@@ -107,31 +107,31 @@ function getLargeStraightScore(dice) {
 }
 
 function selectScore(scoreBox) {
+    if (game.turn > 0){
+        if (!game.boxSelected){
+            console.log(`Score box "${scoreBox}" selected.`);
+        
+            if (game.selectedScores.some(score => score.scoreBox === scoreBox)) {
+                console.log(`Score box "${scoreBox}" has already been selected.`);
+                return;
+            }
     
-    if (!game.boxSelected){
-        console.log(`Score box "${scoreBox}" selected.`);
+            const score = calculateScore(game, scoreBox);
     
-        if (game.selectedScores.some(score => score.scoreBox === scoreBox)) {
-            console.log(`Score box "${scoreBox}" has already been selected.`);
-            return;
+            game.selectedScores.push({ scoreBox, score });
+    
+            const scoreBoxElement = document.querySelector(`.${game.scoreBoxMappings[scoreBox]}`);
+            scoreBoxElement.classList.add('disabled');
+    
+            const rollDiceButton = document.getElementById('roll-dice');
+            rollDiceButton.disabled = false;
+            rollDiceButton.classList.remove('disabled');
+    
+            updateOverallScore(game);
+    
+            game.boxSelected = true;
+            game.previousTurnBoxSelected = true   
         }
-
-        const score = calculateScore(game, scoreBox);
-
-        game.selectedScores.push({ scoreBox, score });
-
-        const scoreBoxElement = document.querySelector(`.${game.scoreBoxMappings[scoreBox]}`);
-        scoreBoxElement.classList.add('disabled');
-
-        const rollDiceButton = document.getElementById('roll-dice');
-        rollDiceButton.disabled = false;
-        rollDiceButton.classList.remove('disabled');
-
-        updateOverallScore(game);
-        console.log(checkGameWin(game));
-
-        game.boxSelected = true;
-        game.resetTurn();        
     }
     
 }
@@ -168,9 +168,6 @@ function updateOverallScore(game) {
     let lowerTotal = 0;
     
     for (let element of game.selectedScores){
-        console.log(element.scoreBox)
-        console.log(element.score)
-        console.log(element)
 
         if (upperSectionKeys.includes(element.scoreBox)){
             upperTotal += element.score;
@@ -200,11 +197,10 @@ function checkGameWin(game) {
     if (selectedScoresLength === (upperSectionKeys.length + lowerSectionKeys.length)) {
         gameWin = true;
         showModal(game.finalScore);
+        const rollButton = document.getElementById('roll-dice');
+        rollButton.disabled = true;
+        rollButton.classList.add('disabled');
     }
-
-    const rollButton = document.getElementById('roll-dice');
-    rollButton.disabled = true;
-    rollButton.classList.add('disabled');
 
     return gameWin;
 }
@@ -212,7 +208,7 @@ function checkGameWin(game) {
 function showModal(finalScore) {
     const modal = document.getElementById("winModal");
     const modalText = document.getElementById("modalText");
-    modalText.textContent = `Game won! Your final score is ${finalScore}`;
+    modalText.innerHTML = `Game won!<br>Your final score is ${finalScore}`;
     modal.style.display = "block";
 }
 
