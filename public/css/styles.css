@@ -1,17 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
 body {
     font-family: Arial, sans-serif;
     text-align: center;
+    font-size: 20px;
+    margin: 0px;
+    margin-top: 0px;
 }
 
-#yatzy-title {
+header {
+    background-color: black;
+    margin-bottom: 20px;
+}
+
+h1 {
     font-family: 'Bebas Neue', sans-serif;
+    color: white;
     font-size: 90px;
+    margin-bottom: 5px;
+    padding-top: 5px;
+    margin-top: 0px;
 }
 
-#score {
-   font-family: 'Bebas Neue', sans-serif;
-   font-size: 50px;
-   margin-top: 15px;
+h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 50px;
+    margin-top: 15px;
+    margin-bottom: 5px;
 }
 
 #roll-result {
@@ -22,7 +37,6 @@ body {
 
 #turn-info {
     margin-top: 10px;
-    font-size: 20px;
 }
 
 .die {
@@ -63,6 +77,7 @@ body {
 
 #roll-dice.disabled {
     cursor: default;
+    pointer-events: none;
     opacity: 0.5;
 }
 
@@ -105,30 +120,39 @@ body {
 
 .score-box.disabled {
     cursor: default;
-    pointer-events: none; 
-    opacity: 0.5; 
+    pointer-events: none;
+    opacity: 0.5;
     background-color: rgb(18, 171, 102);
 }
 
 .bottom-row-container {
     margin-top: 20px;
-    text-align: center;
     display: flex;
     justify-content: center;
+    gap:60px;
 }
 
 .bottom-row {
-    margin-bottom: 10px;
-    margin-right: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.bottom-row .score-name {
+    margin-bottom: 5px;
 }
 
 #button-reset {
     margin-top: 20px;
+    margin-bottom: 10px;
     padding: 10px 20px;
-    font-size: 18px;
+    font-size: 20px;
     background-color: #f33232;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+}
+
+#button-reset:hover {
+    background-color: #d32f2f;
 }

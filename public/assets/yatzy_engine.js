@@ -136,7 +136,6 @@ function selectScore(scoreBox) {
     
 }
 
-
 function updateScoreboard(game) {
     const scoreBoxes = ['ones', 'twos', 'threes', 'fours', 'fives', 'sixes', 'onePair', 'twoPairs', 'threeOfAKind', 'fourOfAKind', 'fullHouse', 'smallStraight', 'largeStraight', 'chance', 'yahtzee'];
     scoreBoxes.forEach(box => {
