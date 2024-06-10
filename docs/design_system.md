@@ -14,9 +14,9 @@ The Arial typeface on the other hand was used in the body, as it neutral and doe
 
 ### Sizes
 
-- **h1:**
-- **h2:**
-- **body:**
+- **h1:** 60px.
+- **h2:** 50px.
+- **body:** 20px.
 
 ## Colours
 
@@ -30,7 +30,9 @@ We opted for blue, green, and red. The blue is was used for the roll button, a p
 
 ### Header
 
-![Header](assets/design_system/header.png)
+![Header](design_system/header.png)
+
+The header holds the logo with a playful NY Times Games logo.
 
 ### Footer
 
