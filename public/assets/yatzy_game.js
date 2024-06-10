@@ -1,3 +1,4 @@
+// Yatzy Game containing information to run the game, scoring and dice values
 class YatzyGame {
     // Constructor
     constructor() {            
@@ -46,28 +47,28 @@ class YatzyGame {
         this.previousTurnBoxSelected = false;
     }
 
+    // increase turn for next turn
     nextTurn() {
         if (this.turn < 3) {
             this.turn++;
         }
     }
 
+    // set turn to 0 for new set of turns
     resetTurn() {
         this.turn = 0;
         this.diceValues = [0, 0, 0, 0, 0];
         this.diceSelected = [false, false, false, false, false];
     }
 
-    resetDiceValue(){
-        
-    }
-
+    // toggle die
     toggleDieSelection(index) {
         if (index >= 0 && index < 5) {
             this.diceSelected[index] = !this.diceSelected[index];
         }
     }
     
+    // return state of game and dice
     getState() {
         return {
             turn: this.turn,
@@ -77,4 +78,5 @@ class YatzyGame {
     }
 }
 
+// initialize game
 const game = new YatzyGame();
