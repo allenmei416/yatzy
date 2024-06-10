@@ -10,48 +10,100 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+    <div id="yatzy-title">Yatzy</div>
+    <div id="roll-result">
+        <div class="die" id="die-0">-</div>
+        <div class="die" id="die-1">-</div>
+        <div class="die" id="die-2">-</div>
+        <div class="die" id="die-3">-</div>
+        <div class="die" id="die-4">-</div>
+    </div>
     <button class="button" id="roll-dice" onclick="rollDice()">Roll Dice</button>
-    <div id="roll-result"></div>
-    <h2>Score</h2>
-    <table class="scoreboard">
-        <tbody>
-            <tr>
-                <td>One:</td>
-                <td class="one"></td>
-                <td>Two:</td>
-                <td class="two"></td>
-                <td>Three:</td>
-                <td class="three"></td>
-                <td>Four:</td>
-                <td class="four"></td>
-                <td>Five:</td>
-                <td class="five"></td>
-                <td>Six:</td>
-                <td class="six"></td>
-                <td>Upper Score:</td>
-                <td class="upper-total"></td>
-                <td>Bonus:</td>
-                <td class="bonus"></td>
-            </tr>
-            <tr>
-                <td>Three of a Kind:</td>
-                <td class="three-kind"></td>
-                <td>Four of a Kind:</td>
-                <td class="four-kind"></td>
-                <td>Full House:</td>
-                <td class="full-house"></td>
-                <td>Small Straight:</td>
-                <td class="small-straight"></td>
-                <td>Large Straight:</td>
-                <td class="large-straight"></td>
-                <td>Chance:</td>
-                <td class="chance"></td>
-                <td>Yahtzee:</td>
-                <td class="yahtzee"></td>
-                <td>Final Score:</td>
-                <td class="final-score"></td>
-            </tr>
-        </tbody>
-    </table>
+    <div id="turn-info">Turn: 0</div>
+    <h2>Scores</h2>
+    <div class="score-column">
+        <div class="score-row">
+            <div class="score-name">One:</div>
+            <div class="score-box one" onclick="selectScore('ones')"></div>
+        </div>
+        <div class="score-row">
+            <div class="score-name">Two:</div>
+            <div class="score-box two" onclick="selectScore('twos')"></div>
+        </div>
+        <div class="score-row">
+            <div class="score-name">Three:</div>
+            <div class="score-box three" onclick="selectScore('threes')"></div>
+        </div>
+    </div>
+    <div class="score-column">
+        <div class="score-row">
+            <div class="score-name">Four:</div>
+            <div class="score-box four" onclick="selectScore('fours')"></div>
+        </div>
+        <div class="score-row">
+            <div class="score-name">Five:</div>
+            <div class="score-box five" onclick="selectScore('fives')"></div>
+        </div>
+        <div class="score-row">
+            <div class="score-name">Six:</div>
+            <div class="score-box six" onclick="selectScore('sixes')"></div>
+        </div>
+    </div>  
+    <div class="score-column">
+        <div class="score-row">
+            <div class="score-name">One Pair:</div>
+            <div class="score-box one-pair" onclick="selectScore('onePair')"></div>
+        </div>
+        <div class="score-row">
+            <div class="score-name">Two Pairs:</div>
+            <div class="score-box two-pair" onclick="selectScore('twoPairs')"></div>
+        </div>
+        <div class="score-row">
+            <div class="score-name">Three of a Kind:</div>
+            <div class="score-box three-kind" onclick="selectScore('threeOfAKind')"></div>
+        </div>
+    </div>
+    <div class="score-column">
+        <div class="score-row">
+            <div class="score-name">Four of a Kind:</div>
+            <div class="score-box four-kind" onclick="selectScore('fourOfAKind')"></div>
+        </div>
+        <div class="score-row">
+            <div class="score-name">Full House:</div>
+            <div class="score-box full-house" onclick="selectScore('fullHouse')"></div>
+        </div>
+        <div class="score-row">
+            <div class="score-name">Small Straight:</div>
+            <div class="score-box small-straight" onclick="selectScore('smallStraight')"></div>
+        </div>
+    </div>
+    <div class="score-column">
+        <div class="score-row">
+            <div class="score-name">Large Straight:</div>
+            <div class="score-box large-straight" onclick="selectScore('largeStraight')"></div>
+        </div>
+        <div class="score-row">
+            <div class="score-name">Chance:</div>
+            <div class="score-box chance" onclick="selectScore('chance')"></div>
+        </div>
+        <div class="score-row">
+            <div class="score-name">Yahtzee:</div>
+            <div class="score-box yahtzee" onclick="selectScore('yahtzee')"></div>
+        </div>
+    </div>
+    <div class="bottom-row-container">
+        <div class="bottom-row">
+            <div class="score-name">Upper Total:</div>
+            <div class="score-box upper-total"></div>
+        </div>
+        <div class="bottom-row">
+            <div class="score-name">Bonus:</div>
+            <div class="score-box bonus"></div>
+        </div>
+        <div class="bottom-row">
+            <div class="score-name">Final Score:</div>
+            <div class="score-box final-score"></div>
+        </div>
+    </div>
 </body>
 </html>

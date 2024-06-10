@@ -1,24 +1,104 @@
-.die {
-    display: inline-block;
-    margin: 5px;
-    padding: 10px 10px;
-    border: 1px solid #000;
-    cursor: pointer;
-    font-size: 2.5rem;
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
 }
-.selected {
-    background-color: lightcoral;
-}
-.scoreboard {
-    width: 100%;
-    border-collapse: collapse;
+
+#yatzy-title {
+    font-size: 36px;
     margin-top: 20px;
 }
-.scoreboard th, .scoreboard td {
-    border: 1px solid #ddd;
-    padding: 8px;
+
+#roll-result {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
 }
-.scoreboard th {
-    background-color: #f2f2f2;
-    text-align: left;
+
+.die {
+    width: 50px;
+    height: 50px;
+    background-color: lightgray;
+    margin: 0 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.die.selected {
+    background-color: rgb(18, 171, 102);
+    color: white;
+}
+
+#roll-dice {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#roll-dice.disabled {
+    cursor: default;
+    opacity: 0.5;
+}
+
+.score-column {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 20px;
+    margin-right: 50px;
+}
+
+.score-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.score-name {
+    font-size: 18px;
+    margin-right: 10px;
+    width: 100px;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.score-box {
+    width: 50px;
+    height: 50px;
+    background-color: lightgray;
+    margin-left: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.score-box:hover {
+    background-color: darkgray;
+}
+
+.score-box.disabled {
+    cursor: default;
+    pointer-events: none; 
+    opacity: 0.5; 
+    background-color: #007bff;
+}
+
+.bottom-row-container {
+    margin-top: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.bottom-row {
+    margin-bottom: 10px;
+    margin-right: 20px;
 }
