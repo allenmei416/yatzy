@@ -1,6 +1,6 @@
 class YatzyGame {
     // Constructor
-    constructor() {
+    constructor() {            
         this.turn = 0;
         this.diceValues = [0, 0, 0, 0, 0];
         this.diceSelected = [false, false, false, false, false];
@@ -42,6 +42,7 @@ class YatzyGame {
         this.selectedScores = [];
         this.bonus = 0;
         this.finalScore = 0;
+        this.boxSelected = false;
     }
 
     nextTurn() {

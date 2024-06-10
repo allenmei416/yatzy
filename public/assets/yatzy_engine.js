@@ -107,9 +107,10 @@ function getLargeStraightScore(dice) {
 }
 
 function selectScore(scoreBox) {
-    if (game.getState().turn === 3) {
+    
+    if (!game.boxSelected){
         console.log(`Score box "${scoreBox}" selected.`);
-        
+    
         if (game.selectedScores.some(score => score.scoreBox === scoreBox)) {
             console.log(`Score box "${scoreBox}" has already been selected.`);
             return;
@@ -128,9 +129,12 @@ function selectScore(scoreBox) {
 
         updateOverallScore(game);
 
-        game.resetTurn();
+        game.boxSelected = true;
+        game.resetTurn();        
     }
+    
 }
+
 
 function updateScoreboard(game) {
     const scoreBoxes = ['ones', 'twos', 'threes', 'fours', 'fives', 'sixes', 'onePair', 'twoPairs', 'threeOfAKind', 'fourOfAKind', 'fullHouse', 'smallStraight', 'largeStraight', 'chance', 'yahtzee'];
@@ -156,25 +160,27 @@ function updateScoreboard(game) {
 }
 
 function updateOverallScore(game) {
-    const upperSectionKeys = ['ones', 'twos', 'threes', 'fours', 'fives', 'sixes'];
+    const upperSectionKeys = ["ones", "twos", "threes", "fours", "fives", "sixes"];
     const lowerSectionKeys = ['onePair', 'twoPairs', 'threeOfAKind', 'fourOfAKind', 'fullHouse', 'smallStraight', 'largeStraight', 'chance', 'yahtzee'];
 
     let upperTotal = 0;
-    upperSectionKeys.forEach(key => {
-        if (game.scores[key] !== null) {
-            upperTotal += game.scores[key];
+    let lowerTotal = 0;
+    
+    for (let element of game.selectedScores){
+        console.log(element.scoreBox)
+        console.log(element.score)
+        console.log(element)
+
+        if (upperSectionKeys.includes(element.scoreBox)){
+            upperTotal += element.score;
+        } else{
+            lowerTotal += element.score;
         }
-    });
+    }
 
     game.upperTotal = upperTotal;
     game.bonus = upperTotal >= 63 ? 35 : 0;
 
-    let lowerTotal = 0;
-    lowerSectionKeys.forEach(key => {
-        if (game.scores[key] !== null) {
-            lowerTotal += game.scores[key];
-        }
-    });
 
     game.finalScore = upperTotal + game.bonus + lowerTotal;
 

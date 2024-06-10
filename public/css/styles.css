@@ -102,3 +102,15 @@ body {
     margin-bottom: 10px;
     margin-right: 20px;
 }
+
+
+.button-reset {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #fd5d5d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}

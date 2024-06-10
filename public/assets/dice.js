@@ -1,4 +1,5 @@
 function rollDice() {
+    game.boxSelected = false;
     if (game.getState().turn < 3) {
         if (game.getState().turn === 2) {
             const rollButton = document.getElementById('roll-dice');
@@ -15,6 +16,7 @@ function rollDice() {
         updateScoreboard(game);
     }
 }
+
 
 function displayDiceResults() {
     const state = game.getState();
