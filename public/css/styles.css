@@ -8,9 +8,15 @@ body {
     margin-top: 0px;
 }
 
-header {
+.header {
     background-color: black;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
+    padding: 20px 20px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
 }
 
 footer {
@@ -23,13 +29,27 @@ footer {
     color:white
 }
 
-h1 {
+#yatzy-title {
     font-family: 'Bebas Neue', sans-serif;
     color: white;
-    font-size: 90px;
-    margin-bottom: 5px;
-    padding-top: 5px;
-    margin-top: 0px;
+    font-size: 60px;
+    margin: 0;
+}
+
+.divider {
+    position: absolute;
+    height: calc(100% - 40px);
+    width: 1.4px;
+    background-color: white;
+    left: calc(50% - 0.5px);
+    top: 20px;
+    margin-left: 5px;
+}
+
+.logo {
+    width: 120px;
+    height: auto;
+    margin-right: 20px;
 }
 
 h2 {
@@ -192,7 +212,6 @@ h2 {
     font-size: 50px;
     font-family: 'Bebas Neue', sans-serif;
 }
-
 
 .close {
     color: #aaa;
