@@ -13,6 +13,16 @@ header {
     margin-bottom: 20px;
 }
 
+footer {
+    margin-top: 10px;
+    background-color: black;
+    padding: 20px;
+}
+
+.footer-text {
+    color:white
+}
+
 h1 {
     font-family: 'Bebas Neue', sans-serif;
     color: white;

@@ -132,6 +132,7 @@ function selectScore(scoreBox) {
             game.boxSelected = true;
             game.previousTurnBoxSelected = true   
         }
+        checkGameWin(game)
     }
     
 }
