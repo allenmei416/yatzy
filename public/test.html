@@ -105,7 +105,13 @@
             <div class="score-box final-score"></div>
         </div>
     </div>
-    <button class="button-reset" id="button-reset" onclick="resetGame()">Reset Game</button>
+    <button class="button-reset" id="button-reset" onclick="location.reload()">Reset Game</button>
     
+    <div id="winModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <p id="modalText">Game won! Your final score is </p>
+        </div>
+    </div>
 </body>
 </html>

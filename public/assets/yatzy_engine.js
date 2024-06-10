@@ -128,6 +128,7 @@ function selectScore(scoreBox) {
         rollDiceButton.classList.remove('disabled');
 
         updateOverallScore(game);
+        console.log(checkGameWin(game));
 
         game.boxSelected = true;
         game.resetTurn();        
@@ -187,4 +188,42 @@ function updateOverallScore(game) {
     document.querySelector('.final-score').textContent = game.finalScore;
     document.querySelector('.upper-total').textContent = game.upperTotal;
     document.querySelector('.bonus').textContent = game.bonus;
+}
+
+function checkGameWin(game) {
+    let gameWin = false;
+    const upperSectionKeys = ["ones", "twos", "threes", "fours", "fives", "sixes"];
+    const lowerSectionKeys = ['onePair', 'twoPairs', 'threeOfAKind', 'fourOfAKind', 'fullHouse', 'smallStraight', 'largeStraight', 'chance', 'yahtzee'];
+
+    const selectedScoresLength = game.selectedScores.length;
+
+    if (selectedScoresLength === (upperSectionKeys.length + lowerSectionKeys.length)) {
+        gameWin = true;
+        showModal(game.finalScore);
+    }
+
+    const rollButton = document.getElementById('roll-dice');
+    rollButton.disabled = true;
+    rollButton.classList.add('disabled');
+
+    return gameWin;
+}
+
+function showModal(finalScore) {
+    const modal = document.getElementById("winModal");
+    const modalText = document.getElementById("modalText");
+    modalText.textContent = `Game won! Your final score is ${finalScore}`;
+    modal.style.display = "block";
+}
+
+function closeModal() {
+    const modal = document.getElementById("winModal");
+    modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+    const modal = document.getElementById("winModal");
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
 }

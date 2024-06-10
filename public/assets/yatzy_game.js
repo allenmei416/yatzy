@@ -57,14 +57,12 @@ class YatzyGame {
         this.diceSelected = [false, false, false, false, false];
     }
 
-    // Toggles which die is selected for re-roll or not
     toggleDieSelection(index) {
         if (index >= 0 && index < 5) {
             this.diceSelected[index] = !this.diceSelected[index];
         }
     }
     
-    // Returns the state of the game
     getState() {
         return {
             turn: this.turn,
