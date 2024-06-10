@@ -1,4 +1,9 @@
 function calculateScore(game, scoreBox) {
+    const selectedScore = game.selectedScores.find(score => score.scoreBox === scoreBox);
+    if (selectedScore) {
+        return selectedScore.score;
+    }
+
     const dice = game.diceValues;
     let score = 0;
 
@@ -104,15 +109,17 @@ function getLargeStraightScore(dice) {
 function selectScore(scoreBox) {
     if (game.getState().turn === 3) {
         console.log(`Score box "${scoreBox}" selected.`);
-        const scoreBoxElement = document.querySelector(`.${game.scoreBoxMappings[scoreBox]}`);
-
-        if (game.selectedScores.includes(scoreBox)) {
+        
+        if (game.selectedScores.some(score => score.scoreBox === scoreBox)) {
             console.log(`Score box "${scoreBox}" has already been selected.`);
             return;
         }
 
-        game.selectedScores.push(scoreBox);
+        const score = calculateScore(game, scoreBox);
 
+        game.selectedScores.push({ scoreBox, score });
+
+        const scoreBoxElement = document.querySelector(`.${game.scoreBoxMappings[scoreBox]}`);
         scoreBoxElement.classList.add('disabled');
 
         const rollDiceButton = document.getElementById('roll-dice');
