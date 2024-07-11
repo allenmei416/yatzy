@@ -1,4 +1,3 @@
-```php
 <?php
 
 $GLOBALS["appDir"] = resolve_path("app");
@@ -32,4 +31,3 @@ spl_autoload_register(function ($fullName) {
       require_once $GLOBALS["appDir"] . "/models/{$className}.php";
     }
 });
-```
