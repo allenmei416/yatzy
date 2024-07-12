@@ -11,6 +11,23 @@ function attemptRollDice() {
 
 // Rolls the dice if they are not selected to be kept, updates the scoreboard
 function roll() {
+    var disableRoll = false;
+    game.boxSelected = false;
+    if (game.getState().turn < 3) {
+        if (game.getState().turn === 2) {
+            disableRoll = true;
+        }
+        for (let i = 0; i < 5; i++) {
+            if (!game.diceSelected[i]) {
+                game.diceValues[i] = Math.floor(Math.random() * 6) + 1;
+            }
+        }
+        game.nextTurn();
+    }
+}
+
+
+function roll() {
     game.boxSelected = false;
     if (game.getState().turn < 3) {
         if (game.getState().turn === 2) {

@@ -1,160 +1,184 @@
 // Calculates the score for each scorebox (combination) and returns the value
-function calculateScore(game, scoreBox) {
-    const selectedScore = game.selectedScores.find(score => score.scoreBox === scoreBox);
-    if (selectedScore) {
-        return selectedScore.score;
-    }
+// function calculateScore(game, scoreBox) {
+//     const selectedScore = game.selectedScores.find(score => score.scoreBox === scoreBox);
+//     if (selectedScore) {
+//         return selectedScore.score;
+//     }
 
-    const dice = game.diceValues;
-    let score = 0;
+//     const dice = game.diceValues;
+//     let score = 0;
 
-    switch (scoreBox) {
-        case 'ones':
-            score = dice.filter(die => die === 1).length * 1;
-            break;
-        case 'twos':
-            score = dice.filter(die => die === 2).length * 2;
-            break;
-        case 'threes':
-            score = dice.filter(die => die === 3).length * 3;
-            break;
-        case 'fours':
-            score = dice.filter(die => die === 4).length * 4;
-            break;
-        case 'fives':
-            score = dice.filter(die => die === 5).length * 5;
-            break;
-        case 'sixes':
-            score = dice.filter(die => die === 6).length * 6;
-            break;
-        case 'onePair':
-            score = getNOfAKindScore(dice, 2);
-            break;
-        case 'twoPairs':
-            score = getTwoPairsScore(dice);
-            break;
-        case 'threeOfAKind':
-            score = getNOfAKindScore(dice, 3);
-            break;
-        case 'fourOfAKind':
-            score = getNOfAKindScore(dice, 4);
-            break;
-        case 'fullHouse':
-            score = getFullHouseScore(dice);
-            break;
-        case 'smallStraight':
-            score = getSmallStraightScore(dice);
-            break;
-        case 'largeStraight':
-            score = getLargeStraightScore(dice);
-            break;
-        case 'chance':
-            score = dice.reduce((sum, die) => sum + die, 0);
-            break;
-        case 'yahtzee':
-            score = getNOfAKindScore(dice, 5);
-            break;
-        default:
-            score = 0;
-            break;
-    }
+//     switch (scoreBox) {
+//         case 'ones':
+//             score = dice.filter(die => die === 1).length * 1;
+//             break;
+//         case 'twos':
+//             score = dice.filter(die => die === 2).length * 2;
+//             break;
+//         case 'threes':
+//             score = dice.filter(die => die === 3).length * 3;
+//             break;
+//         case 'fours':
+//             score = dice.filter(die => die === 4).length * 4;
+//             break;
+//         case 'fives':
+//             score = dice.filter(die => die === 5).length * 5;
+//             break;
+//         case 'sixes':
+//             score = dice.filter(die => die === 6).length * 6;
+//             break;
+//         case 'onePair':
+//             score = getNOfAKindScore(dice, 2);
+//             break;
+//         case 'twoPairs':
+//             score = getTwoPairsScore(dice);
+//             break;
+//         case 'threeOfAKind':
+//             score = getNOfAKindScore(dice, 3);
+//             break;
+//         case 'fourOfAKind':
+//             score = getNOfAKindScore(dice, 4);
+//             break;
+//         case 'fullHouse':
+//             score = getFullHouseScore(dice);
+//             break;
+//         case 'smallStraight':
+//             score = getSmallStraightScore(dice);
+//             break;
+//         case 'largeStraight':
+//             score = getLargeStraightScore(dice);
+//             break;
+//         case 'chance':
+//             score = dice.reduce((sum, die) => sum + die, 0);
+//             break;
+//         case 'yahtzee':
+//             score = getNOfAKindScore(dice, 5);
+//             break;
+//         default:
+//             score = 0;
+//             break;
+//     }
 
-    return score;
-}
+//     return score;
+// }
 
-// Any number of a kind scoring
-function getNOfAKindScore(dice, n) {
-    const counts = Array(7).fill(0);
-    dice.forEach(die => counts[die]++);
-    let maxPairValue = 0;
-    for (let i = 1; i < counts.length; i++) {
-        if (counts[i] >= n) {
-            maxPairValue = i > maxPairValue ? i : maxPairValue;
-        }
-    }
-    return maxPairValue * n; 
-}
+// // Any number of a kind scoring
+// function getNOfAKindScore(dice, n) {
+//     const counts = Array(7).fill(0);
+//     dice.forEach(die => counts[die]++);
+//     let maxPairValue = 0;
+//     for (let i = 1; i < counts.length; i++) {
+//         if (counts[i] >= n) {
+//             maxPairValue = i > maxPairValue ? i : maxPairValue;
+//         }
+//     }
+//     return maxPairValue * n; 
+// }
 
-// Two pairs scoring
-function getTwoPairsScore(dice) {
-    const counts = Array(7).fill(0);
-    dice.forEach(die => counts[die]++);
-    let pairs = [];
-    for (let i = 1; i < counts.length; i++) {
-        if (counts[i] >= 2) {
-            pairs.push(i * 2);
-        }
-    }
-    return pairs.length >= 2 ? pairs[0] + pairs[1] : 0;
-}
+// // Two pairs scoring
+// function getTwoPairsScore(dice) {
+//     const counts = Array(7).fill(0);
+//     dice.forEach(die => counts[die]++);
+//     let pairs = [];
+//     for (let i = 1; i < counts.length; i++) {
+//         if (counts[i] >= 2) {
+//             pairs.push(i * 2);
+//         }
+//     }
+//     return pairs.length >= 2 ? pairs[0] + pairs[1] : 0;
+// }
 
-// Full house scoring
-function getFullHouseScore(dice) {
-    const counts = Array(7).fill(0);
-    dice.forEach(die => counts[die]++);
+// // Full house scoring
+// function getFullHouseScore(dice) {
+//     const counts = Array(7).fill(0);
+//     dice.forEach(die => counts[die]++);
     
-    let tripleValue = 0;
-    let tripleFound = false;
-    let doubleValue = 0;
-    let doubleFound = false;
+//     let tripleValue = 0;
+//     let tripleFound = false;
+//     let doubleValue = 0;
+//     let doubleFound = false;
     
-    counts.forEach((count, index) => {
-        if (count >= 3) {
-            tripleValue = index;
-            tripleFound = true;
-        }
-        if (count >= 2 && index !== tripleValue) {
-            doubleValue = index;
-            doubleFound = true;
-        }
-    });
+//     counts.forEach((count, index) => {
+//         if (count >= 3) {
+//             tripleValue = index;
+//             tripleFound = true;
+//         }
+//         if (count >= 2 && index !== tripleValue) {
+//             doubleValue = index;
+//             doubleFound = true;
+//         }
+//     });
     
-    return tripleFound && doubleFound ? (tripleValue * 3) + (doubleValue * 2) : 0;
-}
+//     return tripleFound && doubleFound ? (tripleValue * 3) + (doubleValue * 2) : 0;
+// }
 
-// Small straight scoring
-function getSmallStraightScore(dice) {
-    const smallStraight = [1, 2, 3, 4, 5];
-    return smallStraight.every(num => dice.includes(num)) ? 15 : 0;
-}
+// // Small straight scoring
+// function getSmallStraightScore(dice) {
+//     const smallStraight = [1, 2, 3, 4, 5];
+//     return smallStraight.every(num => dice.includes(num)) ? 15 : 0;
+// }
 
-// Large straight scoring
-function getLargeStraightScore(dice) {
-    const largeStraight = [2, 3, 4, 5, 6];
-    return largeStraight.every(num => dice.includes(num)) ? 20 : 0;
-}
+// // Large straight scoring
+// function getLargeStraightScore(dice) {
+//     const largeStraight = [2, 3, 4, 5, 6];
+//     return largeStraight.every(num => dice.includes(num)) ? 20 : 0;
+// }
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 // In charge of the selection (keep) of a combination
+
 function selectScore(scoreBox) {
-    if (game.turn > 0){
-        if (!game.boxSelected){
-            console.log(`Score box "${scoreBox}" selected.`);
-        
-            if (game.selectedScores.some(score => score.scoreBox === scoreBox)) {
-                console.log(`Score box "${scoreBox}" has already been selected.`);
-                return;
+    $.ajax({
+        url: 'app/api.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            action: 'selectScore',
+            scoreBox: scoreBox
+        },
+        success: function(response) {
+            if (response.disableScoreBox) {
+                const scoreBoxElement = document.querySelector(`.${game.scoreBoxMappings[scoreBox]}`);
+                scoreBoxElement.classList.add('disabled');
             }
-    
-            const score = calculateScore(game, scoreBox);
-    
-            game.selectedScores.push({ scoreBox, score });
-    
-            const scoreBoxElement = document.querySelector(`.${game.scoreBoxMappings[scoreBox]}`);
-            scoreBoxElement.classList.add('disabled');
-    
-            const rollDiceButton = document.getElementById('roll-dice');
-            rollDiceButton.disabled = false;
-            rollDiceButton.classList.remove('disabled');
-    
-            updateOverallScore(game);
-    
-            game.boxSelected = true;
-            game.previousTurnBoxSelected = true   
+            if (response.enableRollDice) {
+                const rollDiceButton = document.getElementById('roll-dice');
+                rollDiceButton.disabled = false;
+                rollDiceButton.classList.remove('disabled');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error selecting score:', error);
+            $('#response').html('<p>Error selecting score via API.</p>');
         }
-        checkGameWin(game)
-    }
-    
+    });
+
 }
+
+function calculateScore(box){
+    $.ajax({
+        url: 'app/api.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            action: 'calculateScore',
+            scoreBox: box
+        },
+        success: function(response) {
+            if (response.score) {
+                return response.score
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error selecting score:', error);
+            $('#response').html('<p>Error selecting score via API.</p>');
+        }
+    });
+}
+
 
 // Updates the scoreboard after every dice roll for every combination
 function updateScoreboard(game) {
@@ -181,6 +205,7 @@ function updateScoreboard(game) {
 }
 
 // Updates the final, bonus, and upper scores on the scoreboard
+
 function updateOverallScore(game) {
     const upperSectionKeys = ["ones", "twos", "threes", "fours", "fives", "sixes"];
     const lowerSectionKeys = ['onePair', 'twoPairs', 'threeOfAKind', 'fourOfAKind', 'fullHouse', 'smallStraight', 'largeStraight', 'chance', 'yahtzee'];
@@ -203,28 +228,63 @@ function updateOverallScore(game) {
 
     game.finalScore = upperTotal + game.bonus + lowerTotal;
 
-    document.querySelector('.final-score').textContent = game.finalScore;
-    document.querySelector('.upper-total').textContent = game.upperTotal;
-    document.querySelector('.bonus').textContent = game.bonus;
+    return game.finalScore, game.upperTotal, game.bonus
+}
+
+
+
+
+function updateOverallScore() {
+    $.ajax({
+        url: 'app/api.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            action: 'updateOverallScore',
+            scoreBox: box
+        },
+        success: function(response) {
+            if (response.finalScore) {
+                document.querySelector('.final-score').textContent = response.finalScore;
+            }
+            if (response.upperTotal) {
+                document.querySelector('.final-score').textContent = response.upperTotal;
+            }
+            if (response.bonus) {
+                document.querySelector('.final-score').textContent = response.bonus;
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error selecting score:', error);
+            $('#response').html('<p>Error selecting score via API.</p>');
+        }
+    });
 }
 
 // Checker to see if the game has been won/finished
-function checkGameWin(game) {
-    let gameWin = false;
-    const upperSectionKeys = ["ones", "twos", "threes", "fours", "fives", "sixes"];
-    const lowerSectionKeys = ['onePair', 'twoPairs', 'threeOfAKind', 'fourOfAKind', 'fullHouse', 'smallStraight', 'largeStraight', 'chance', 'yahtzee'];
-
-    const selectedScoresLength = game.selectedScores.length;
-
-    if (selectedScoresLength === (upperSectionKeys.length + lowerSectionKeys.length)) {
-        gameWin = true;
-        showModal(game.finalScore);
-        const rollButton = document.getElementById('roll-dice');
-        rollButton.disabled = true;
-        rollButton.classList.add('disabled');
-    }
-
-    return gameWin;
+function checkGameWin() {
+    $.ajax({
+        url: 'app/api.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            action: 'checkGameWin'
+        },
+        success: function(response) {
+            if (response.gameWin) {
+                if (response.finalScore){
+                    showModal(game.finalScore);
+                    const rollButton = document.getElementById('roll-dice');
+                    rollButton.disabled = true;
+                    rollButton.classList.add('disabled');
+                }
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error selecting score:', error);
+            $('#response').html('<p>Error selecting score via API.</p>');
+        }
+    });
 }
 
 function showModal(finalScore) {
