@@ -114,18 +114,11 @@ function updateOverallScore(){
 }
 
 function checkGameWin(){
-     // Ensure game object exists in session
-     if (!isset($_SESSION['yatzyGame'])) {
-        http_response_code(400); // Bad request
-        echo json_encode(['error' => 'Game not initialized']);
-        exit();
-    }
-
     // Get game object from session
     $game = $_SESSION['yatzyGame'];
 
     // Call selectScore function
-    list($gameWin, $finalScore) = checkGameWin($game);
+    list($gameWin, $finalScore) = YatzyEngine::checkGameWin($game);
 
     // Save updated game object back to session
     $_SESSION['yatzyGame'] = $game;

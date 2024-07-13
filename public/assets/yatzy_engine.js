@@ -1,134 +1,3 @@
-// Calculates the score for each scorebox (combination) and returns the value
-// function calculateScore(game, scoreBox) {
-//     const selectedScore = game.selectedScores.find(score => score.scoreBox === scoreBox);
-//     if (selectedScore) {
-//         return selectedScore.score;
-//     }
-
-//     const dice = game.diceValues;
-//     let score = 0;
-
-//     switch (scoreBox) {
-//         case 'ones':
-//             score = dice.filter(die => die === 1).length * 1;
-//             break;
-//         case 'twos':
-//             score = dice.filter(die => die === 2).length * 2;
-//             break;
-//         case 'threes':
-//             score = dice.filter(die => die === 3).length * 3;
-//             break;
-//         case 'fours':
-//             score = dice.filter(die => die === 4).length * 4;
-//             break;
-//         case 'fives':
-//             score = dice.filter(die => die === 5).length * 5;
-//             break;
-//         case 'sixes':
-//             score = dice.filter(die => die === 6).length * 6;
-//             break;
-//         case 'onePair':
-//             score = getNOfAKindScore(dice, 2);
-//             break;
-//         case 'twoPairs':
-//             score = getTwoPairsScore(dice);
-//             break;
-//         case 'threeOfAKind':
-//             score = getNOfAKindScore(dice, 3);
-//             break;
-//         case 'fourOfAKind':
-//             score = getNOfAKindScore(dice, 4);
-//             break;
-//         case 'fullHouse':
-//             score = getFullHouseScore(dice);
-//             break;
-//         case 'smallStraight':
-//             score = getSmallStraightScore(dice);
-//             break;
-//         case 'largeStraight':
-//             score = getLargeStraightScore(dice);
-//             break;
-//         case 'chance':
-//             score = dice.reduce((sum, die) => sum + die, 0);
-//             break;
-//         case 'yahtzee':
-//             score = getNOfAKindScore(dice, 5);
-//             break;
-//         default:
-//             score = 0;
-//             break;
-//     }
-
-//     return score;
-// }
-
-// // Any number of a kind scoring
-// function getNOfAKindScore(dice, n) {
-//     const counts = Array(7).fill(0);
-//     dice.forEach(die => counts[die]++);
-//     let maxPairValue = 0;
-//     for (let i = 1; i < counts.length; i++) {
-//         if (counts[i] >= n) {
-//             maxPairValue = i > maxPairValue ? i : maxPairValue;
-//         }
-//     }
-//     return maxPairValue * n; 
-// }
-
-// // Two pairs scoring
-// function getTwoPairsScore(dice) {
-//     const counts = Array(7).fill(0);
-//     dice.forEach(die => counts[die]++);
-//     let pairs = [];
-//     for (let i = 1; i < counts.length; i++) {
-//         if (counts[i] >= 2) {
-//             pairs.push(i * 2);
-//         }
-//     }
-//     return pairs.length >= 2 ? pairs[0] + pairs[1] : 0;
-// }
-
-// // Full house scoring
-// function getFullHouseScore(dice) {
-//     const counts = Array(7).fill(0);
-//     dice.forEach(die => counts[die]++);
-    
-//     let tripleValue = 0;
-//     let tripleFound = false;
-//     let doubleValue = 0;
-//     let doubleFound = false;
-    
-//     counts.forEach((count, index) => {
-//         if (count >= 3) {
-//             tripleValue = index;
-//             tripleFound = true;
-//         }
-//         if (count >= 2 && index !== tripleValue) {
-//             doubleValue = index;
-//             doubleFound = true;
-//         }
-//     });
-    
-//     return tripleFound && doubleFound ? (tripleValue * 3) + (doubleValue * 2) : 0;
-// }
-
-// // Small straight scoring
-// function getSmallStraightScore(dice) {
-//     const smallStraight = [1, 2, 3, 4, 5];
-//     return smallStraight.every(num => dice.includes(num)) ? 15 : 0;
-// }
-
-// // Large straight scoring
-// function getLargeStraightScore(dice) {
-//     const largeStraight = [2, 3, 4, 5, 6];
-//     return largeStraight.every(num => dice.includes(num)) ? 20 : 0;
-// }
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-// In charge of the selection (keep) of a combination
 
 function selectScore(scoreBox) {
     $.ajax({
@@ -169,6 +38,7 @@ function selectScore(scoreBox) {
                 rollDiceButton.classList.remove('disabled');
             }
             updateOverallScore();
+            checkGameWin()
         },
         error: function(xhr, status, error) {
             console.error('Error selecting score:', error);
@@ -251,10 +121,10 @@ function updateOverallScore() {
                 document.querySelector('.final-score').textContent = response.finalScore;
             }
             if (response.upperTotal) {
-                document.querySelector('.final-score').textContent = response.upperTotal;
+                document.querySelector('.upper-total').textContent = response.upperTotal;
             }
             if (response.bonus) {
-                document.querySelector('.final-score').textContent = response.bonus;
+                document.querySelector('.bonus').textContent = response.bonus;
             }
         },
         error: function(xhr, status, error) {
@@ -276,7 +146,7 @@ function checkGameWin() {
         success: function(response) {
             if (response.gameWin) {
                 if (response.finalScore){
-                    showModal(game.finalScore);
+                    showModal(response.finalScore);
                     const rollButton = document.getElementById('roll-dice');
                     rollButton.disabled = true;
                     rollButton.classList.add('disabled');

@@ -8,16 +8,14 @@ class YatzyEngine {
         $selectedScore = null;
         foreach ($game->selectedScores as $score) {
             foreach ($game->selectedScores as $score) {
-                if (is_object($score) && isset($score->scoreBox)) {
-                    if ($score->scoreBox === $scoreBox) {
-                        $selectedScore = $score;
-                        break;
-                    }
+                if ($score['scoreBox'] === $scoreBox) {
+                    $selectedScore = $score;
+                    break;
                 }
             }
         }
         if ($selectedScore !== null) {
-            return $selectedScore->score;
+            return $selectedScore['score'];
         }
 
         $dice = $game->diceValues;
@@ -178,29 +176,28 @@ class YatzyEngine {
         if (isset($game->selectedScores) && is_array($game->selectedScores)) {
 
             foreach ($game->selectedScores as $score) {
-                
-                // Ensure $score is an object with 'scoreBox' and 'score' properties
-                if (is_object($score) && property_exists($score, 'scoreBox') && property_exists($score, 'score')) {
 
-                    if (in_array($score->scoreBox, $upperSectionKeys)) {
-                        $upperTotal += $score->score;
-                    } else if (in_array($score->scoreBox, $lowerSectionKeys)) {
-                        $lowerTotal += $score->score;
-                    }
+                if (in_array($score['scoreBox'], $upperSectionKeys)) {
+                    $upperTotal += $score['score'];
+                } else if (in_array($score['scoreBox'], $lowerSectionKeys)) {
+                    $lowerTotal += $score['score'];
                 }
             }
         }
+
+        // $selectedScoresLength = count($game->selectedScores);
+        // $firstScoreBox = $game->selectedScores[0]['scoreBox'];
+        // error_log($firstScoreBox);
     
         // Calculate bonus for upper section
         $game->upperTotal = $upperTotal;
         $game->bonus = $upperTotal >= 63 ? 35 : 0;
         $game->finalScore = $upperTotal + $game->bonus + $lowerTotal;
     
-    
         return [
-            'finalScore' => $game->finalScore,
-            'upperTotal' => $game->upperTotal,
-            'bonus' => $game->bonus
+            $game->finalScore,
+            $game->upperTotal,
+            $game->bonus
         ];
     }
 
@@ -216,8 +213,8 @@ class YatzyEngine {
         }
 
         return [
-            'gameWin' => $gameWin,
-            'finalScore' => $game->finalScore
+            $gameWin,
+            $game->finalScore
         ];
     }
 
