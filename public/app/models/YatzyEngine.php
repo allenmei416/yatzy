@@ -185,11 +185,6 @@ class YatzyEngine {
             }
         }
 
-        // $selectedScoresLength = count($game->selectedScores);
-        // $firstScoreBox = $game->selectedScores[0]['scoreBox'];
-        // error_log($firstScoreBox);
-    
-        // Calculate bonus for upper section
         $game->upperTotal = $upperTotal;
         $game->bonus = $upperTotal >= 63 ? 35 : 0;
         $game->finalScore = $upperTotal + $game->bonus + $lowerTotal;
