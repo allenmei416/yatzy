@@ -140,15 +140,35 @@ function selectScore(scoreBox) {
             scoreBox: scoreBox
         },
         success: function(response) {
-            if (response.disableScoreBox) {
-                const scoreBoxElement = document.querySelector(`.${game.scoreBoxMappings[scoreBox]}`);
+            if (response['disableScoreBox']) {
+
+                scoreBoxMappings = {
+                    ones: 'one',
+                    twos: 'two',
+                    threes: 'three',
+                    fours: 'four',
+                    fives: 'five',
+                    sixes: 'six',
+                    onePair: 'one-pair',
+                    twoPairs: 'two-pair',
+                    threeOfAKind: 'three-kind',
+                    fourOfAKind: 'four-kind',
+                    fullHouse: 'full-house',
+                    smallStraight: 'small-straight',
+                    largeStraight: 'large-straight',
+                    chance: 'chance',
+                    yahtzee: 'yahtzee'
+                };
+                const scoreBoxElement = document.querySelector(`.${scoreBoxMappings[scoreBox]}`);
                 scoreBoxElement.classList.add('disabled');
             }
-            if (response.enableRollDice) {
+            console.log(response['enableRollDice'])
+            if (response['enableRollDice']) {
                 const rollDiceButton = document.getElementById('roll-dice');
                 rollDiceButton.disabled = false;
                 rollDiceButton.classList.remove('disabled');
             }
+            updateOverallScore();
         },
         error: function(xhr, status, error) {
             console.error('Error selecting score:', error);
@@ -217,35 +237,6 @@ function updateScoreboard() {
     });
 }
 
-// Updates the final, bonus, and upper scores on the scoreboard
-
-function updateOverallScore(game) {
-    const upperSectionKeys = ["ones", "twos", "threes", "fours", "fives", "sixes"];
-    const lowerSectionKeys = ['onePair', 'twoPairs', 'threeOfAKind', 'fourOfAKind', 'fullHouse', 'smallStraight', 'largeStraight', 'chance', 'yahtzee'];
-
-    let upperTotal = 0;
-    let lowerTotal = 0;
-    
-    for (let element of game.selectedScores){
-
-        if (upperSectionKeys.includes(element.scoreBox)){
-            upperTotal += element.score;
-        } else{
-            lowerTotal += element.score;
-        }
-    }
-
-    game.upperTotal = upperTotal;
-    game.bonus = upperTotal >= 63 ? 35 : 0;
-
-
-    game.finalScore = upperTotal + game.bonus + lowerTotal;
-
-    return game.finalScore, game.upperTotal, game.bonus
-}
-
-
-
 
 function updateOverallScore() {
     $.ajax({
@@ -253,8 +244,7 @@ function updateOverallScore() {
         type: 'POST',
         dataType: 'json',
         data: {
-            action: 'updateOverallScore',
-            scoreBox: box
+            action: 'updateOverallScore'
         },
         success: function(response) {
             if (response.finalScore) {

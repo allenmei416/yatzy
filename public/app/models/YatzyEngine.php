@@ -7,9 +7,13 @@ class YatzyEngine {
     public static function calculateScore($game, $scoreBox) {
         $selectedScore = null;
         foreach ($game->selectedScores as $score) {
-            if ($score->scoreBox === $scoreBox) {
-                $selectedScore = $score;
-                break;
+            foreach ($game->selectedScores as $score) {
+                if (is_object($score) && isset($score->scoreBox)) {
+                    if ($score->scoreBox === $scoreBox) {
+                        $selectedScore = $score;
+                        break;
+                    }
+                }
             }
         }
         if ($selectedScore !== null) {
@@ -72,6 +76,7 @@ class YatzyEngine {
 
         return $score;
     }
+    
 
     public static function getNOfAKindScore($dice, $n) {
         $counts = array_fill(1, 6, 0);
@@ -135,54 +140,62 @@ class YatzyEngine {
 
 
     public static function selectScore($game, $scoreBox) {
-        ini_set('log_errors', 1);
-        ini_set('error_log', 'error.log');
-        error_log( $scoreBox);
-        $disableScoreBox = true;
+        $disableScoreBox = false;
         $enableRollDice = false;
-    
+        
         if ($game->turn > 0) {
             if (!$game->boxSelected) {
                 // Calculate score
-                $score = calculateScore($game, $scoreBox);
+
+                $score = self::calculateScore($game, $scoreBox);
+
     
                 // Store selected score
                 $game->selectedScores[] = ['scoreBox' => $scoreBox, 'score' => $score];
     
                 $disableScoreBox = true;
-                $enableRollDice = false;
+                $enableRollDice = true;
     
                 // Update overall score
-                updateOverallScore($game);
+                self::updateOverallScore($game);
     
                 $game->boxSelected = true;
                 $game->previousTurnBoxSelected = true;
             }
-            checkGameWin($game);
+            self::checkGameWin($game);
         }
     
-        // Return values (PHP can't return multiple values directly like JavaScript)
         return [$disableScoreBox, $enableRollDice];
     }
 
-    function updateOverallScore($game) {
+    public static function updateOverallScore($game) {
         $upperSectionKeys = ["ones", "twos", "threes", "fours", "fives", "sixes"];
         $lowerSectionKeys = ['onePair', 'twoPairs', 'threeOfAKind', 'fourOfAKind', 'fullHouse', 'smallStraight', 'largeStraight', 'chance', 'yahtzee'];
     
         $upperTotal = 0;
         $lowerTotal = 0;
     
-        foreach ($game->selectedScores as $element) {
-            if (in_array($element->scoreBox, $upperSectionKeys)) {
-                $upperTotal += $element->score;
-            } else {
-                $lowerTotal += $element->score;
+        if (isset($game->selectedScores) && is_array($game->selectedScores)) {
+
+            foreach ($game->selectedScores as $score) {
+                
+                // Ensure $score is an object with 'scoreBox' and 'score' properties
+                if (is_object($score) && property_exists($score, 'scoreBox') && property_exists($score, 'score')) {
+
+                    if (in_array($score->scoreBox, $upperSectionKeys)) {
+                        $upperTotal += $score->score;
+                    } else if (in_array($score->scoreBox, $lowerSectionKeys)) {
+                        $lowerTotal += $score->score;
+                    }
+                }
             }
         }
     
+        // Calculate bonus for upper section
         $game->upperTotal = $upperTotal;
         $game->bonus = $upperTotal >= 63 ? 35 : 0;
         $game->finalScore = $upperTotal + $game->bonus + $lowerTotal;
+    
     
         return [
             'finalScore' => $game->finalScore,
@@ -191,7 +204,7 @@ class YatzyEngine {
         ];
     }
 
-    function checkGameWin($game) {
+    public static function checkGameWin($game) {
         $gameWin = false;
         $upperSectionKeys = ["ones", "twos", "threes", "fours", "fives", "sixes"];
         $lowerSectionKeys = ['onePair', 'twoPairs', 'threeOfAKind', 'fourOfAKind', 'fullHouse', 'smallStraight', 'largeStraight', 'chance', 'yahtzee'];

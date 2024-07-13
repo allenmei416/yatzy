@@ -46,10 +46,6 @@ class Dice{
 
 
     public static function toggleDieSelection($game, $placement) {
-        ini_set('log_errors', 1);
-        ini_set('error_log', 'error.log');
-        error_log("placement");
-        error_log($placement);
         $game->toggleDieSelection($placement);
     }
 }

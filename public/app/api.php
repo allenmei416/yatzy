@@ -36,7 +36,9 @@ function selectScore() {
     $game = $_SESSION['yatzyGame'];
 
     // Call selectScore function
+
     list($disableScoreBox, $enableRollDice) = YatzyEngine::selectScore($game, $_POST['scoreBox']);
+
 
     // Save updated game object back to session
     $_SESSION['yatzyGame'] = $game;
@@ -71,7 +73,7 @@ function calculateScore(){
     $game = $_SESSION['yatzyGame'];
 
     // Call selectScore function
-    list($score) = calculateScore($game, $_POST['scoreBox']);
+    $score = YatzyEngine::calculateScore($game, $_POST['scoreBox']);
 
     // Save updated game object back to session
     $_SESSION['yatzyGame'] = $game;
@@ -89,18 +91,11 @@ function calculateScore(){
 
 function updateOverallScore(){
     
-    // Ensure game object exists in session
-    if (!isset($_SESSION['yatzyGame'])) {
-        http_response_code(400); // Bad request
-        echo json_encode(['error' => 'Game not initialized']);
-        exit();
-    }
-
     // Get game object from session
     $game = $_SESSION['yatzyGame'];
 
     // Call selectScore function
-    list($finalScore, $upperTotal, $bonus) = updateOverallScore($game);
+    list($finalScore, $upperTotal, $bonus) = YatzyEngine::updateOverallScore($game);
 
     // Save updated game object back to session
     $_SESSION['yatzyGame'] = $game;
@@ -216,6 +211,7 @@ function updateScoreboard(){
     // Get game object from session
     $game = $_SESSION['yatzyGame'];
 
+    
     $scores = YatzyEngine::updateScoreboard($game);
 
     // Save updated game object back to session
