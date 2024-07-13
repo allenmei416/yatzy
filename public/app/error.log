@@ -1,0 +1,65 @@
+[13-Jul-2024 03:54:20 UTC] PHP Warning:  Undefined array key "placement" in C:\Users\allen\Downloads\yatzy\public\app\api.php on line 197
+[13-Jul-2024 03:54:20 UTC] PHP Deprecated:  error_log(): Passing null to parameter #1 ($message) of type string is deprecated in C:\Users\allen\Downloads\yatzy\public\app\api.php on line 197
+[13-Jul-2024 03:54:20 UTC] 
+[13-Jul-2024 03:54:20 UTC] PHP Warning:  Undefined array key "placement" in C:\Users\allen\Downloads\yatzy\public\app\api.php on line 199
+[13-Jul-2024 03:54:20 UTC] PHP Deprecated:  error_log(): Passing null to parameter #1 ($message) of type string is deprecated in C:\Users\allen\Downloads\yatzy\public\app\models\Dice.php on line 51
+[13-Jul-2024 03:54:20 UTC] 
+[13-Jul-2024 03:54:20 UTC] PHP Warning:  Undefined array key "" in C:\Users\allen\Downloads\yatzy\public\app\models\YatzyGame.php on line 60
+[13-Jul-2024 03:55:53 UTC] PHP Warning:  Undefined array key "placement" in C:\Users\allen\Downloads\yatzy\public\app\api.php on line 197
+[13-Jul-2024 03:55:53 UTC] PHP Deprecated:  error_log(): Passing null to parameter #1 ($message) of type string is deprecated in C:\Users\allen\Downloads\yatzy\public\app\api.php on line 197
+[13-Jul-2024 03:55:53 UTC] 
+[13-Jul-2024 03:55:53 UTC] PHP Warning:  Undefined array key "placement" in C:\Users\allen\Downloads\yatzy\public\app\api.php on line 199
+[13-Jul-2024 03:55:53 UTC] placement
+[13-Jul-2024 03:55:53 UTC] PHP Deprecated:  error_log(): Passing null to parameter #1 ($message) of type string is deprecated in C:\Users\allen\Downloads\yatzy\public\app\models\Dice.php on line 52
+[13-Jul-2024 03:55:53 UTC] 
+[13-Jul-2024 03:55:53 UTC] PHP Warning:  Undefined array key "" in C:\Users\allen\Downloads\yatzy\public\app\models\YatzyGame.php on line 60
+[13-Jul-2024 04:02:24 UTC] placement
+[13-Jul-2024 04:02:24 UTC] 0
+[13-Jul-2024 04:02:28 UTC] placement
+[13-Jul-2024 04:02:28 UTC] 0
+[13-Jul-2024 04:02:29 UTC] placement
+[13-Jul-2024 04:02:29 UTC] 0
+[13-Jul-2024 04:02:38 UTC] placement
+[13-Jul-2024 04:02:38 UTC] 0
+[13-Jul-2024 04:05:01 UTC] placement
+[13-Jul-2024 04:05:01 UTC] 0
+[13-Jul-2024 04:05:03 UTC] placement
+[13-Jul-2024 04:05:03 UTC] 0
+[13-Jul-2024 04:05:08 UTC] onePair
+[13-Jul-2024 04:05:08 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 262144 bytes) in C:\Users\allen\Downloads\yatzy\public\app\api.php on line 74
+[13-Jul-2024 04:08:05 UTC] placement
+[13-Jul-2024 04:08:05 UTC] 0
+[13-Jul-2024 04:08:54 UTC] placement
+[13-Jul-2024 04:08:54 UTC] 3
+[13-Jul-2024 04:08:56 UTC] placement
+[13-Jul-2024 04:08:56 UTC] 3
+[13-Jul-2024 04:08:56 UTC] placement
+[13-Jul-2024 04:08:56 UTC] 3
+[13-Jul-2024 04:08:57 UTC] placement
+[13-Jul-2024 04:08:57 UTC] 3
+[13-Jul-2024 04:08:57 UTC] placement
+[13-Jul-2024 04:08:57 UTC] 3
+[13-Jul-2024 04:08:58 UTC] placement
+[13-Jul-2024 04:08:58 UTC] 3
+[13-Jul-2024 04:08:58 UTC] placement
+[13-Jul-2024 04:08:58 UTC] 3
+[13-Jul-2024 04:08:59 UTC] placement
+[13-Jul-2024 04:08:59 UTC] 2
+[13-Jul-2024 04:08:59 UTC] placement
+[13-Jul-2024 04:08:59 UTC] 2
+[13-Jul-2024 04:08:59 UTC] placement
+[13-Jul-2024 04:08:59 UTC] 2
+[13-Jul-2024 04:09:00 UTC] placement
+[13-Jul-2024 04:09:00 UTC] 2
+[13-Jul-2024 04:09:00 UTC] placement
+[13-Jul-2024 04:09:00 UTC] 2
+[13-Jul-2024 04:09:03 UTC] onePair
+[13-Jul-2024 04:09:03 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 262144 bytes) in C:\Users\allen\Downloads\yatzy\public\app\api.php on line 74
+[13-Jul-2024 04:09:13 UTC] placement
+[13-Jul-2024 04:09:13 UTC] 2
+[13-Jul-2024 04:09:14 UTC] placement
+[13-Jul-2024 04:09:14 UTC] 3
+[13-Jul-2024 04:09:14 UTC] placement
+[13-Jul-2024 04:09:14 UTC] 4
+[13-Jul-2024 04:09:16 UTC] placement
+[13-Jul-2024 04:09:16 UTC] 1

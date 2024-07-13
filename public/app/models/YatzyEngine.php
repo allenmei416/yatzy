@@ -134,7 +134,10 @@ class YatzyEngine {
     }
 
 
-    function selectScore($game, $scoreBox) {
+    public static function selectScore($game, $scoreBox) {
+        ini_set('log_errors', 1);
+        ini_set('error_log', 'error.log');
+        error_log( $scoreBox);
         $disableScoreBox = true;
         $enableRollDice = false;
     
@@ -203,6 +206,21 @@ class YatzyEngine {
             'gameWin' => $gameWin,
             'finalScore' => $game->finalScore
         ];
+    }
+
+    public static function updateScoreboard($game) {
+        $scoreBoxes = [
+            'ones', 'twos', 'threes', 'fours', 'fives', 'sixes', 
+            'onePair', 'twoPairs', 'threeOfAKind', 'fourOfAKind', 
+            'fullHouse', 'smallStraight', 'largeStraight', 
+            'chance', 'yahtzee'
+        ];
+    
+        foreach ($scoreBoxes as $box) {
+
+            $game->scores[$box] = self::calculateScore($game, $box);
+        }
+        return $game->scores;
     }
 
 

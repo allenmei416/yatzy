@@ -9,11 +9,6 @@ $(document).ready(function() {
         },
         success: function(response) {
             console.log('Game initialized:', response);
-            if (response.gameCreated) {
-                console.log('New game created.');
-            } else {
-                console.log('Resumed existing game.');
-            }
             $('#response').html('<p>Game initialized. Dice: ' + response.gameState.diceValues.join(', ') + '</p>');
         },
         error: function(xhr, status, error) {

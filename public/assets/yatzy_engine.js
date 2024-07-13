@@ -181,27 +181,40 @@ function calculateScore(box){
 
 
 // Updates the scoreboard after every dice roll for every combination
-function updateScoreboard(game) {
-    const scoreBoxes = ['ones', 'twos', 'threes', 'fours', 'fives', 'sixes', 'onePair', 'twoPairs', 'threeOfAKind', 'fourOfAKind', 'fullHouse', 'smallStraight', 'largeStraight', 'chance', 'yahtzee'];
-    scoreBoxes.forEach(box => {
-        game.scores[box] = calculateScore(game, box);
-    });
+function updateScoreboard() {
+    $.ajax({
+        url: 'app/api.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            action: 'updateScoreboard'
+        },
+        success: function(response) {
+            if (response.scores) {
+                var all_scores = response.scores;
 
-    document.querySelector('.one').textContent = game.scores.ones;
-    document.querySelector('.two').textContent = game.scores.twos;
-    document.querySelector('.three').textContent = game.scores.threes;
-    document.querySelector('.four').textContent = game.scores.fours;
-    document.querySelector('.five').textContent = game.scores.fives;
-    document.querySelector('.six').textContent = game.scores.sixes;
-    document.querySelector('.one-pair').textContent = game.scores.onePair;
-    document.querySelector('.two-pair').textContent = game.scores.twoPairs;
-    document.querySelector('.three-kind').textContent = game.scores.threeOfAKind;
-    document.querySelector('.four-kind').textContent = game.scores.fourOfAKind;
-    document.querySelector('.full-house').textContent = game.scores.fullHouse;
-    document.querySelector('.small-straight').textContent = game.scores.smallStraight;
-    document.querySelector('.large-straight').textContent = game.scores.largeStraight;
-    document.querySelector('.chance').textContent = game.scores.chance;
-    document.querySelector('.yahtzee').textContent = game.scores.yahtzee;
+                document.querySelector('.one').textContent = all_scores['ones'];
+                document.querySelector('.two').textContent = all_scores['twos'];
+                document.querySelector('.three').textContent = all_scores['threes'];
+                document.querySelector('.four').textContent = all_scores['fours'];
+                document.querySelector('.five').textContent = all_scores['fives'];
+                document.querySelector('.six').textContent = all_scores['sixes'];
+                document.querySelector('.one-pair').textContent = all_scores['onePair'];
+                document.querySelector('.two-pair').textContent = all_scores['twoPairs'];
+                document.querySelector('.three-kind').textContent = all_scores['threeOfAKind'];
+                document.querySelector('.four-kind').textContent = all_scores['fourOfAKind'];
+                document.querySelector('.full-house').textContent = all_scores['fullHouse'];
+                document.querySelector('.small-straight').textContent = all_scores['smallStraight'];
+                document.querySelector('.large-straight').textContent = all_scores['largeStraight'];
+                document.querySelector('.chance').textContent = all_scores['chance'];
+                document.querySelector('.yahtzee').textContent = all_scores['yahtzee'];
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error selecting score:', error);
+            $('#response').html('<p>Error selecting score via API.</p>');
+        }
+    });
 }
 
 // Updates the final, bonus, and upper scores on the scoreboard

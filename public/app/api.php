@@ -2,9 +2,12 @@
 
 // Include config file and necessary classes
 include '_config.php'; // Adjust the path as needed
+include 'models/Dice.php';
+
 
 use Yatzy\Dice;
 use Yatzy\YatzyGame;
+use Yatzy\YatzyEngine;
 
 header('Content-Type: application/json');
 
@@ -12,13 +15,9 @@ session_start();
 
 // Function to handle POST request for initializing or resuming game state
 function initializeGame() {
-    if (!isset($_SESSION['yatzyGame'])) {
-        $_SESSION['yatzyGame'] = new YatzyGame();
-        $gameCreated = true;
-    } else {
-        $gameCreated = false;
-    }
-
+    
+    $_SESSION['yatzyGame'] = new YatzyGame();
+    
     $game = $_SESSION['yatzyGame'];
 
     // Save game state
@@ -26,33 +25,18 @@ function initializeGame() {
 
     // Return JSON response
     echo json_encode([
-        'gameState' => $game->getState(),
-        'gameCreated' => $gameCreated
+        'gameState' => $game->getState()
     ]);
     exit();
 }
 
 // Function to handle POST request for selecting a score
 function selectScore() {
-    // Check if scoreBox is provided
-    if (!isset($_POST['scoreBox'])) {
-        http_response_code(400); // Bad request
-        echo json_encode(['error' => 'Score box not specified']);
-        exit();
-    }
-
-    // Ensure game object exists in session
-    if (!isset($_SESSION['yatzyGame'])) {
-        http_response_code(400); // Bad request
-        echo json_encode(['error' => 'Game not initialized']);
-        exit();
-    }
-
     // Get game object from session
     $game = $_SESSION['yatzyGame'];
 
     // Call selectScore function
-    list($disableScoreBox, $enableRollDice) = selectScore($game, $_POST['scoreBox']);
+    list($disableScoreBox, $enableRollDice) = YatzyEngine::selectScore($game, $_POST['scoreBox']);
 
     // Save updated game object back to session
     $_SESSION['yatzyGame'] = $game;
@@ -163,6 +147,90 @@ function checkGameWin(){
     exit();
 }
 
+function attemptRollDice() {
+
+    // Get game object from session
+    $game = $_SESSION['yatzyGame'];
+    
+
+    // Call attemptRollDice function from Dice.php
+    list($disableRoll, $turnLessThan3) = Dice::attemptRollDice($game);
+
+
+    // Save updated game object back to session
+    $_SESSION['yatzyGame'] = $game;
+
+    // Prepare response
+    $response = [
+        'disableRoll' => $disableRoll,
+        'turnLessThan3' => $turnLessThan3,
+        'gameState' => $game->getState()
+    ];
+
+    // Send JSON response
+    echo json_encode($response);
+    exit();
+}
+
+
+function getState(){
+    $game = $_SESSION['yatzyGame'];
+    $response = [
+        'gameState' => $game->getState()
+    ];
+
+    // Send JSON response
+    echo json_encode($response);
+    exit();
+}
+
+function toggleDieSelection(){
+    
+    // Get game object from session
+    $game = $_SESSION['yatzyGame'];
+
+    // Save updated game object back to session
+    $_SESSION['yatzyGame'] = $game;
+
+    Dice::toggleDieSelection($game, $_POST['number']);
+
+    // Prepare response
+    $response = [
+        'gameState' => $game->getState()
+    ];
+
+    // Send JSON response
+    echo json_encode($response);
+    exit();
+
+}
+
+function updateScoreboard(){
+    // Ensure game object exists in session
+    if (!isset($_SESSION['yatzyGame'])) {
+        http_response_code(400); // Bad request
+        echo json_encode(['error' => 'Game not initialized']);
+        exit();
+    }
+    
+    // Get game object from session
+    $game = $_SESSION['yatzyGame'];
+
+    $scores = YatzyEngine::updateScoreboard($game);
+
+    // Save updated game object back to session
+    $_SESSION['yatzyGame'] = $game;
+
+    // Prepare response
+    $response = [
+        'scores' => $scores
+    ];
+
+    // Send JSON response
+    echo json_encode($response);
+    exit();
+}
+
 // Main entry point
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Check if action is provided
@@ -182,6 +250,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 break;
             case 'checkGameWin':
                 checkGameWin();
+                break;
+            case 'attemptRollDice':
+                attemptRollDice();
+                break;
+            case 'getState':
+                getState();
+                break;
+            case 'toggleDieSelection':
+                toggleDieSelection();
+                break;
+            case 'updateScoreboard':
+                updateScoreboard();
                 break;
             default:
                 http_response_code(400); // Bad request

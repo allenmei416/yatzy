@@ -70,7 +70,7 @@ class YatzyGame {
     }
 
     public function getState() {
-        return [
+        return (object) [
             'turn' => $this->turn,
             'diceValues' => $this->diceValues,
             'diceSelected' => $this->diceSelected
