@@ -19,7 +19,7 @@
         <div class="header-text">
             <h1 id="yatzy-title">Yatzy</h1>
         </div>
-      </header>
+    </header>
     <div id="roll-result">
         <div class="die" id="die-0">-</div>
         <div class="die" id="die-1">-</div>
@@ -117,6 +117,7 @@
         </div>
     </div>
     <button class="button-reset" id="button-reset" onclick="location.reload();">Reset Game</button>
+    <button class="button-leaderboard" id="button-leaderboard" onclick="showLeaderboard()">View Leaderboard</button>
     
     <div id="winModal" class="modal" hidden>
         <div class="modal-content">
@@ -124,8 +125,15 @@
             <p id="modalText">Game won! Your final score is </p>
         </div>
     </div>
+    <div id="leaderboardModal" class="modal" hidden>
+        <div class="modal-content">
+            <span class="close" onclick="closeLeaderboard()">&times;</span>
+            <h2>Top 10 Scores</h2>
+            <ul id="leaderboardList"></ul>
+        </div>
+    </div>
     <footer>
         <div class="footer-text">Copyright 2024 - Patrick Meyer and Allen Mei</div>
-      </footer>
+    </footer>
 </body>
 </html>

@@ -151,6 +151,9 @@ function checkGameWin() {
                     rollButton.disabled = true;
                     rollButton.classList.add('disabled');
                 }
+                if (response.scoreboard){
+                    console.log(response.scoreboard)
+                }
             }
         },
         error: function(xhr, status, error) {
@@ -158,6 +161,35 @@ function checkGameWin() {
             $('#response').html('<p>Error selecting score via API.</p>');
         }
     });
+}
+
+function showLeaderboard(){
+    $.ajax({
+        url: 'app/api.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            action: 'getScoreboard'
+        },
+        success: function(response) {
+            if (response.scoreboard) {
+                let leaderboardList = $('#leaderboardList');
+                leaderboardList.empty();
+                response.scoreboard.forEach((score, index) => {
+                    leaderboardList.append(`<li>${index + 1}. ${score}</li>`);
+                });
+                $('#leaderboardModal').show();
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error selecting score:', error);
+            $('#response').html('<p>Error selecting score via API.</p>');
+        }
+    });
+}
+
+function closeLeaderboard() {
+    $('#leaderboardModal').hide();
 }
 
 function showModal(finalScore) {

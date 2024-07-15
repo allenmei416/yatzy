@@ -15,6 +15,9 @@ session_start();
 
 // Function to handle POST request for initializing or resuming game state
 function initializeGame() {
+    if (!isset($_SESSION['scoreboard'])) {
+        $_SESSION['scoreboard'] = [];
+    }
     
     $_SESSION['yatzyGame'] = new YatzyGame();
     
@@ -113,12 +116,16 @@ function updateOverallScore(){
     exit();
 }
 
-function checkGameWin(){
+function checkGameWin() {
     // Get game object from session
     $game = $_SESSION['yatzyGame'];
 
     // Call selectScore function
     list($gameWin, $finalScore) = YatzyEngine::checkGameWin($game);
+
+    if ($gameWin) {
+        saveFinalScore($finalScore);
+    }
 
     // Save updated game object back to session
     $_SESSION['yatzyGame'] = $game;
@@ -127,6 +134,7 @@ function checkGameWin(){
     $response = [
         'gameWin' => $gameWin,
         'finalScore' => $finalScore,
+        'scoreboard' => $_SESSION['scoreboard'],
         'gameState' => $game->getState()
     ];
 
@@ -220,6 +228,33 @@ function updateScoreboard(){
     exit();
 }
 
+function saveFinalScore($finalScore) {
+    if (!isset($_SESSION['scoreboard'])) {
+        $_SESSION['scoreboard'] = [];
+    }
+
+    $_SESSION['scoreboard'][] = $finalScore;
+    rsort($_SESSION['scoreboard']);
+    
+    $_SESSION['scoreboard'] = array_slice($_SESSION['scoreboard'], 0, 10);
+
+}
+
+function getScoreboard() {
+    if (!isset($_SESSION['scoreboard'])) {
+        $_SESSION['scoreboard'] = [];
+    }
+
+    // Prepare response
+    $response = [
+        'scoreboard' => $_SESSION['scoreboard']
+    ];
+
+    // Send JSON response
+    echo json_encode($response);
+    exit();
+}
+
 // Main entry point
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Check if action is provided
@@ -251,6 +286,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 break;
             case 'updateScoreboard':
                 updateScoreboard();
+                break;
+            case 'getScoreboard':
+                getScoreboard();
                 break;
             default:
                 http_response_code(400); // Bad request
