@@ -128,12 +128,12 @@ class YatzyEngine {
 
     public static function getSmallStraightScore($dice) {
         $smallStraight = [1, 2, 3, 4, 5];
-        return count(array_intersect($dice, $smallStraight)) === 5 ? 15 : 0;
+        return empty(array_diff($smallStraight, $dice)) ? 15 : 0;
     }
 
     public static function getLargeStraightScore($dice) {
         $largeStraight = [2, 3, 4, 5, 6];
-        return count(array_intersect($dice, $largeStraight)) === 5 ? 20 : 0;
+        return empty(array_diff($largeStraight, $dice)) ? 20 : 0;
     }
 
 

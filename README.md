@@ -9,7 +9,9 @@ Patrick Meyer 300220498
 
 ## How To Use
 
-As described in the assignment document, Yatzy is a dice game that requires the player to spin 5 dice up to 3 times per turn. On our website, you can roll the dice, and you will see the 5 dice, as well as which turn you're on. The dice can be selected and de-selected in order to keep them for the next turn. After each roll of the dice, you can select on of the dice combinations by clicking on the box, which will be highlighted in green. Aferwards, re-roll the dice until there are no more boxes. After the last box is used, a window will popup with the final score. The game can be restarded with the "Reset Game" button.
+As described in the assignment document, Yatzy is a dice game that requires the player to spin 5 dice up to 3 times per turn. On our website, you can roll the dice, and you will see the 5 dice, as well as which turn you're on. The dice can be selected and de-selected in order to keep them for the next turn. After each roll of the dice, you can select on of the dice combinations by clicking on the box, which will be highlighted in green. Aferwards, re-roll the dice until there are no more boxes. After the last box is used, a window will popup with the final score. The game can be restarded with the "Reset Game" button. The leaderboard can be viewed by pressing on the view leaderboard button, where the top 10 results will be displayed.
+
+The management of the leaderboard is done in the api.php file, in the checkGameWin() function.
 
 ## My Design System
 
@@ -36,3 +38,9 @@ This is during the game.
 ![End Game](/docs/ui_states/end_game.png)
 
 This is at the end of the game.
+
+### View Leaderboard
+
+![End Game](/docs/ui_states/view_leaderboard.png)
+
+This is when viewing the leaderboard.
