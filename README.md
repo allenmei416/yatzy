@@ -13,6 +13,10 @@ As described in the assignment document, Yatzy is a dice game that requires the 
 
 The management of the leaderboard is done in the api.php file, in the checkGameWin() function.
 
+## How To Run
+
+cd public, php -S localhost:4000
+
 ## My Design System
 
 This repository documents the design system for our Yatzy project.
